@@ -4,79 +4,89 @@
 import numpy as np
 
 #-----------------------------------------
-# Array Declerations :
+# Array Declerations and Basic Operations:
 #-----------------------------------------
-a = np.array([1,2,3]) 
-print(a[0]+a[1]+a[2]) # ans = 6
+a = np.array( [ [0,1,2], [3,4,5] ] )
+print(a)        # a = [0 1 2]
+                #     [3 4 5]
+print(a[0,0])   # ans = 0
+print(a[1,1])   # ans = 4
 
-b = np.array( [ (1,2,3), (4,5,6) ] )
-print(b)        # b = [1 2 3]
-                #     [4 5 6]
-print(b[0,0])   # ans = 1
-print(b[1,1])   # ans = 5
+a = np.arange(6).reshape(2,3)
+print(a)        # a = [0 1 2]
+                #     [3 4 5]
 
-c = np.arange(16).reshape(2,8)
-print(c) # [00 01 02 03 04 05 06 07]
-         # [08 09 10 11 12 13 14 15]
+print(a.size)     # ans = 6
+print(a.dtype)    # int64
+print(a.shape)    # (2,3) 
+print(a.shape[0]) # 2
+print(a.shape[1]) # 3
 
-print(c.size)     # ans = 16
-print(c.dtype)    # int64
-print(c.shape)    # (2,8) 
-print(c.shape[0]) # 2
-print(c.shape[1]) # 8
+a = np.ones(4).reshape(2,2)
+print(a)    # [1 1]
+            # [1 1]
+b = np.arange(4).reshape(2,2) 
+print(b)    # [0 1]
+            # [2 3]
 
-d = np.zeros( (4,4) )
-print(d)    # [0 0 0 0]
-            # [0 0 0 0]
-            # [0 0 0 0]
-            # [0 0 0 0]
+print(b-a)  # [-1  0]
+            # [ 1  2]
 
+print(b*a)  # [0  1] ->dotProduct
+            # [2  3]
 
-#-----------------------------------------
-# Basic Operations :
-#-----------------------------------------
-a = np.array( [1,2,3,4] )
-b = np.array( [2,3,4,5] )
-print(b-a)      # [1 1 1 1]
-print(b+a)      # [3 5 7 9]
-print(b*a)      # [2 6 12 20]
-print(b/a)      # [2 1.5 1.33 1.25]
-print(a<=2)     # [True True False False]
-print(a@b)      # Matrix mult, ans = 40
-print(b.sum())  # ans = 14
-print(b.min())  # ans = 2
-print(b.max())  # ans = 5
+print(b@a)  # [1  1] ->matrixMult
+            # [5  5]
 
-c = np.array( [1,2,3,4,5,6,7,8,9,10,11] )
-print(c[0:11:2]) # [1 3 5 7 9 11]
-print(len(c))    # ans = 11
+print(b/a)  # [0 1]
+            # [2 3]
 
-d = np.array( [ (11,12,13,14,15),
-                (16,17,18,19,20),
-                (21,22,23,24,25) ] )
+print(b.min())  # ans = 0
+print(b.max())  # ans = 3
 
-for row in d:   # [11 12 13 14 15]
-    print(row)  # [16 17 18 19 20]
-                # [21 22 23 24 25] 
-    
-for element in d.flat: 
-    print(element)
+print(b.sum(axis=0))  # ans = [2 4] 
+print(b.sum(axis=1))  # ans = [1 5]
+print(b.sum())        # ans = 6
 
-print(d.reshape(1,15))
-print(d.reshape(15,1))
-print(d.reshape(3,5))
+c = np.array( [1,2,3,4,5,6,7,8,9,10,11,12] )
+odd  = c[0:12:2]
+even = c[1:12:2]
+print(odd)  # [1 3 5 7 9 11]
+print(even) # [2 4 5 6 10 12]
 
+h = np.hstack((odd,even))
+print(h) # [1 3 5 7 9 11 2 4 6 8 10 12]
 
+v = np.vstack((odd,even))
+print(v) # [1 3 5 7 9 11 ]
+         # [2 4 6 8 10 12]
 
+# Random Number Gen
+randArr = np.random.rand(2,3) # 2x3 arr with uniform dist.
 
+# Find Unique Numbers in Arr
+a = np.array([1,1,1,2,2,2,3,3,3,4,4,4])
+print(np.unique(a)) # [1 2 3 4]
 
+# Transpose of Arr
+a = np.arange(6).reshape(2,3)
+print(a)    # [0 1 2]
+            # [3 4 5]
 
+print(a.T)  # [0 3]
+            # [1 4]
+            # [2 5]
 
+print(a@a.T) # [5  14]
+             # [14 50]
 
+# Example: mse calculation
+N = 10
+predictions  = np.array([1, 2, 3])
+measurements = np.array([1.1, 2.1, 3.1])
 
-
-
-
+error = (1/N)*np.sum(np.square(predictions-measurements))
+print(error) #ans = 0.1*(0.01 + 0.01 + 0.01) = 0.003
 
 
 
