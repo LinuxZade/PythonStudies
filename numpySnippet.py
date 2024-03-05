@@ -88,6 +88,112 @@ measurements = np.array([1.1, 2.1, 3.1])
 error = (1/N)*np.sum(np.square(predictions-measurements))
 print(error) #ans = 0.1*(0.01 + 0.01 + 0.01) = 0.003
 
+# Diagonal Matrix decleration
+a = np.eye(3)
+print(a) # [1 0 0]
+         # [0 1 0]
+         # [0 0 1]
+
+b = np.diag([1,2,3,4])
+print(b) # [1 0 0 0]
+         # [0 2 0 0]
+         # [0 0 3 0]
+         # [0 0 0 4]
+
+# Structured Arrays
+a = np.array( [('Name1',18,75.1)  ,\
+               ('Name2',35,85.2)  ,\
+               ('Name3',65,91.5)] ,\
+               dtype = [('name','<U10')  ,\
+                        ('age','<i8')    ,\
+                        ('weight','<f8')] )
+
+print(a[0])           # [Name1 18 75.1]
+print(a['name'])      # [Name1 Name2 Name3]
+print(a['age'])       # [18 35 65]
+print(a['weight'])    # [75.1 85.2 91.5]
+print(a['age'].min()) # 18
+
+
+#--------------------------------------------------
+# I/O with Numpy
+#--------------------------------------------------
+from io import StringIO
+#np.genfromtxt( StringIO(data), delimeter="," )
+
+#Example:
+unicodeDta = u"1,2,3\n4,5,6"
+a = np.genfromtxt(StringIO(unicodeDta),delimiter=",")
+print(a) # [1 2 3]
+         # [4 5 6]
+         
+print(a[1,1]) # 5
+
+#Example:
+unicodeDta = u"""
+# This is 1st comment Line
+# This is 2nd comment Line
+# Parameter is given below:
+1 # Param-1
+2 # Param-2
+3 # Param-3
+"""
+a = np.genfromtxt(StringIO(unicodeDta),\
+                  comments="#",\
+                  delimiter=",")
+
+print(a) # [1 2 3]
+
+#Example:
+unicodeDta = u"""
+# This is 1st comment Line
+# This is 2nd comment Line
+# Array is given below:
+1,2,3.05
+4,5,6.05
+7,8,9.05
+"""
+a = np.genfromtxt(StringIO(unicodeDta),\
+                  comments="#",\
+                  delimiter=",")
+
+print(a) # [1 2 3.05]
+         # [4 5 6.05]
+         # [7 8 9.05]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
