@@ -54,6 +54,17 @@ even = c[1:12:2]
 print(odd)  # [1 3 5 7 9 11]
 print(even) # [2 4 5 6 10 12]
 
+d = np.arange(12).reshape(3,4).T
+print(d) # [0 4 8 ]
+         # [1 5 9 ]
+         # [2 6 10]
+         # [3 7 11]
+
+print(d[0,:]) # [0 4 8]
+print(d[1,:]) # [1 5 9]
+print(d[:,0]) # [0 1 2 3]
+print(d[:,2]) # [8 9 10 11]
+
 h = np.hstack((odd,even))
 print(h) # [1 3 5 7 9 11 2 4 6 8 10 12]
 
@@ -160,6 +171,26 @@ a = np.genfromtxt(StringIO(unicodeDta),\
 print(a) # [1 2 3.05]
          # [4 5 6.05]
          # [7 8 9.05]
+
+
+# Csv write,read:
+a = np.arange(24).reshape(3,8).T
+print(a) # [0 8  16]
+         # [1 9  17]
+         # [. .  . ] 
+         # [7 15 23]
+
+np.savetxt("myArray.csv", X=a, header="x,y,z", delimiter=",")
+b = np.loadtxt("myArray.csv", delimiter=",")
+
+print(b[0,0]) # 0
+print(b[7,2]) # 23, array is succesfully stored and loaded.
+
+# delete file:
+import os 
+os.remove("myArray.csv") 
+
+
 
 
 
