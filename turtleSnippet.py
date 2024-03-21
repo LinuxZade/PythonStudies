@@ -131,23 +131,50 @@ screenInst.bgcolor("gray")
 screenInst.title("Catch The Ball")
 tbound = turtle.Turtle()
 tSnake = turtle.Turtle()
-tFood = turtle.Turtle()
+tFood1 = turtle.Turtle()
+tFood2 = turtle.Turtle()
+tFood3 = turtle.Turtle()
+tFood4 = turtle.Turtle()
+tFood5 = turtle.Turtle()
 tScore = turtle.Turtle()
 tTime = turtle.Turtle()
 tScore.penup()
 tTime.penup()
 tScore.hideturtle()
 tTime.hideturtle()
-tFood.color("blue")
+tFood1.color("blue")
+tFood2.color("blue")
+tFood3.color("blue")
+tFood4.color("blue")
+tFood5.color("blue")
 tSnake.shape("square")
 tSnake.penup()
-eps = 1
+eps = 1.5
 score = 0
 gameIn = True
 
 
-tFood.shape("circle")
-tFood.shapesize(1,1,1)
+tFood1.shape("circle")
+tFood1.shapesize(1,1,1)
+tFood2.shape("circle")
+tFood2.shapesize(1,1,1)
+tFood3.shape("circle")
+tFood3.shapesize(1,1,1)
+tFood4.shape("circle")
+tFood4.shapesize(1,1,1)
+tFood5.shape("circle")
+tFood5.shapesize(1,1,1)
+tFood1.penup()
+tFood2.penup()
+tFood3.penup()
+tFood4.penup()
+tFood5.penup()
+
+tFood1.setpos(10,10)
+tFood2.setpos(-110,10)
+tFood3.setpos(120,20)
+tFood4.setpos(10,-110)
+tFood5.setpos(20,120)
 
 def drawBoundary(boundLen):
     tbound.hideturtle()
@@ -159,7 +186,11 @@ def drawBoundary(boundLen):
         tbound.left(90)
 
 def snakeWalk(delayms):
-    tSnake.forward(5)
+    if (tSnake.xcor()<200) and (tSnake.xcor()>-200) and (tSnake.ycor()<200) and (tSnake.ycor()>-200):
+        tSnake.forward(1)
+    else:
+        tSnake.goto(0,0)
+
     turtle.delay(delayms) 
 
 def snakeRight():
@@ -169,14 +200,22 @@ def snakeLeft():
     tSnake.left(90) 
 
 def checkSucces():
-    if ((abs(tSnake.xcor() - tFood.xcor()) < eps) and (abs(tSnake.ycor() - tFood.ycor()) < eps)):
-        global score
-        score +=1
-        print(str(score)) 
+    global score
+
+    if ((abs(tSnake.xcor() - tFood1.xcor()) < eps) and (abs(tSnake.ycor() - tFood1.ycor()) < eps)): 
+        score +=1 
+    elif ((abs(tSnake.xcor() - tFood2.xcor()) < eps) and (abs(tSnake.ycor() - tFood2.ycor()) < eps)):   
+        score +=1 
+    elif ((abs(tSnake.xcor() - tFood3.xcor()) < eps) and (abs(tSnake.ycor() - tFood3.ycor()) < eps)):  
+        score +=1 
+    elif ((abs(tSnake.xcor() - tFood4.xcor()) < eps) and (abs(tSnake.ycor() - tFood4.ycor()) < eps)):  
+        score +=1 
+    elif ((abs(tSnake.xcor() - tFood5.xcor()) < eps) and (abs(tSnake.ycor() - tFood5.ycor()) < eps)):  
+        score +=1 
 
 def moveSnake():
     screenInst.listen() 
-    snakeWalk(2)
+    snakeWalk(0.5)
     screenInst.onkey(fun=snakeRight, key="r") 
     screenInst.onkey(fun=snakeLeft, key="l") 
     checkSucces()
@@ -188,9 +227,13 @@ tScore.setpos(-20,200)
 tTime.setpos(-20,250)
 
 startTime = time.time()
+
+
+print( str(tbound.pos()) )
+
 while(gameIn): 
     moveSnake()
-    remain = startTime+90 - time.time()
+    remain = startTime+50 - time.time() 
     tTime.clear()
     tTime.write("Time : " +str(int(remain)),move=False,font=("Arial",12,"bold"))
      
